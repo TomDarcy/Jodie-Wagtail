@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+<!-- load wagtailcore_tags by adding this: -->
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-homepage{% endblock %}
+
+<!-- replace everything below with: -->
+{% block content %}
+    {{ page.body|richtext }}
+
+    {{page.home_title}}
+    {{page.home_subtitle}}
+    <!-- image -->
+    <img src="{{page.home_main_image.url}}" alt="{{page.home_main_image.alt}}">
+    {{page.home_main_image}}
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block body_class %}template-blogindexpage{% endblock %}
+
+{% block content %}
+
+
+
+    <div class="py-12 sm:py-12">
+      <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl text-center">
+          <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{{page.headline}}</h2>
+          <p class="mt-2 text-lg leading-8 text-gray-600"> {{page.intro}} </p>
+        </div>
+        <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+          {% for post in page.get_children %}
+          <article hx-get="{% pageurl post %}" hx-target="#app" hx-push-url="true" class="flex flex-col items-start justify-between hover:scale-[1.02] transition ease-in-out duration-300 hover:shadow-md shadow-sm cursor-pointer">
+            <div class="relative w-full">
+              <img src="{{post.specific.main_image.url}}" alt="" class="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]">
+              <div class="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+            </div>
+            <div class="max-w-xl px-2 pb-2">
+              <div class="mt-8 flex items-center gap-x-4 text-xs">
+                <time datetime="2020-03-16" class="text-gray-500">{{post.specific.date}}</time>
+              </div>
+              <div class="group relative">
+                <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+                  <a href="#">
+                    <span class="absolute inset-0"></span>
+                    {{ post.specific.blog_title }}
+                                    </a>
+                </h3>
+                <p class="mt-5 line-clamp-3 text-sm leading-6 text-gray-600">{{post.specific.tag_line}}</p>
+              </div>
+              <div class="relative mt-8 flex items-center gap-x-4">
+                <img src="{{post.specific.author_image.url}}" alt="" class="h-10 w-10 rounded-full bg-gray-100">
+                <div class="text-sm leading-6">
+                  <p class="font-semibold text-gray-900">
+                    <a href="#">
+                      <span class="absolute inset-0"></span>
+                      {{post.specific.author}}
+                    </a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </article>
+          {% endfor %}
+
+          <!-- More posts... -->
+        </div>
+      </div>
+    </div>
+
+
+{% endblock %}
